@@ -1,6 +1,5 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
-import uvicorn
 
 app = FastAPI()
 
@@ -10,17 +9,11 @@ class CalcIn(BaseModel):
     component: str
 
 @app.post("/api/calculate")
-async def calculate(data: CalcIn, request: Request):
-    # ====================
-    # 我关掉了安全校验，让你本地能调试！
-    # 上线后我再帮你加回来
-    # ====================
-
+def calculate(data: CalcIn):
     p = data.pressure
     t = data.temperature
     comp = data.component
 
-    # 你的计算逻辑
     result = p * 1.2 + t * 0.8
 
     return {
@@ -31,4 +24,4 @@ async def calculate(data: CalcIn, request: Request):
 
 @app.get("/")
 def home():
-    return {"status": "running"}
+    return {"status": "ok"}
