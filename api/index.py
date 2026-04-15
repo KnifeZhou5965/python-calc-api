@@ -3,16 +3,16 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-class Item(BaseModel):
+class CalcInput(BaseModel):
     pressure: float
     temperature: float
     component: str
 
 @app.post("/api/calculate")
-def calculate(item: Item):
-    p = item.pressure
-    t = item.temperature
-    comp = item.component
+def calculate(data: CalcInput):
+    p = data.pressure
+    t = data.temperature
+    comp = data.component
     result = p * 1.2 + t * 0.8
     return {
         "code": 0,
@@ -21,5 +21,5 @@ def calculate(item: Item):
     }
 
 @app.get("/")
-def root():
+def home():
     return {"status": "running"}
