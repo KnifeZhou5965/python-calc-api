@@ -13,9 +13,7 @@ def calculate(item: Item):
     p = item.pressure
     t = item.temperature
     comp = item.component
-
     result = p * 1.2 + t * 0.8
-
     return {
         "code": 0,
         "result": round(result, 2),
@@ -24,4 +22,4 @@ def calculate(item: Item):
 
 @app.get("/")
 def root():
-    return {"message": "running"}
+    return {"status": "running"}
